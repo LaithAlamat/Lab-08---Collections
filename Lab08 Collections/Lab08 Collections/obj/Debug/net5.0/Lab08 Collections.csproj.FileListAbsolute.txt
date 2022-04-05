@@ -1,0 +1,16 @@
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.csproj.AssemblyReference.cache
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.AssemblyInfoInputs.cache
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.AssemblyInfo.cs
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.csproj.CoreCompileInputs.cache
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.exe
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.deps.json
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.runtimeconfig.json
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.runtimeconfig.dev.json
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.dll
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\ref\Lab08 Collections.dll
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\bin\Debug\net5.0\Lab08 Collections.pdb
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.dll
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\ref\Lab08 Collections.dll
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.pdb
+C:\Users\laith alamat\source\repos\Lab08 Collections\Lab08 Collections\obj\Debug\net5.0\Lab08 Collections.genruntimeconfig.cache
