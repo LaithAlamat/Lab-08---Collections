@@ -2,102 +2,206 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Lab08_Collections
+namespace CollectionsApp
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            EnteredBooks();
+
+            UserInterface();
+
+
         }
 
-    public class Book
+
+        static Library library = new Library();
+        static Backpack<Book> Bag = new Backpack<Book>();
+        public static void EnteredBooks()
         {
-            public string Title { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
 
-            public int NumberOfPages { get; set; }
-            public Book(string Title, string FirstName, string LastName, int NumberOfPages)
-            {
-                this.Title = Title;
-                this.FirstName = FirstName;
-                this.LastName = LastName;
-                this.NumberOfPages = NumberOfPages;
-            }
+            library.Add("History", "Chris", "Fallan", 200);
+            library.Add("BOOK2", "Mike", "Fallan", 450);
+            library.Add("Book3", "John", "Fallan", 300);
+            library.Add("Book4", "Tom", "Fallan", 150);
+
         }
 
+        public static void UserInterface()
+        {
+
+            Console.WriteLine("Welcome to Our library");
+            Console.WriteLine("Please select an action: ");
+            Console.WriteLine("1- View Books ");
+            Console.WriteLine("2- Add a Book ");
+            Console.WriteLine("3- Borrow a book ");
+            Console.WriteLine("4- Return a book ");
+            Console.WriteLine("5- View Borrowed books ");
+            Console.WriteLine("6- Exit ");
+
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            switch (userInput)
+            {
+                case 1:
+                    ViewBooks();
+                    break;
+                case 2:
+                    AddBook();
+                    break;
+                case 3:
+                    BorrowBook();
+                    break;
+                case 4:
+                    ReturnBook();
+                    break;
+                case 5:
+                    VeiwBorrowedBooks();
+                    break;
+                case 6:
+                    Console.WriteLine("Thank you for using our library");
+                    break;
+
+            }
+
+        }
+
+        public static void ReturnBook()
+        {
+            Console.WriteLine("Please select the number of the book you want to return to the library");
+            Dictionary<int, Book> books = new Dictionary<int, Book>();
+            int counter = 0;
+
+            foreach (Book book in Bag)
+            {
+                books.Add(counter, book);
+                Console.WriteLine("Index : " + counter + " Tile: " + book.title + " Author: " + book.firstName + " " + book.lastName);
+                counter++;
+            }
+
+            int userInput = Convert.ToInt32(Console.ReadLine());
+            if (userInput > counter)
+            {
+                throw new Exception();
+            }
+            Book book1 = Bag.Unpack(userInput);
+            library.Return(book1);
+            UserInterface();
+        }
+        public static void VeiwBorrowedBooks()
+        {
+            int counter = 0;
+            foreach (Book book in Bag)
+            {
+                Console.WriteLine("Index : " + counter + "Tile: " + book.title + " Author: " + book.firstName + " " + book.lastName);
+                counter++;
+            }
+            UserInterface();
+            //return counter;
+        }
+        public static void BorrowBook()
+        {
+            foreach (Book book in library)
+            {
+                Console.WriteLine("Tile: " + book.title + " Author: " + book.firstName + " " + book.lastName);
+            }
+            Console.WriteLine("Enter the title you want to borrow");
+
+            string userInput = Console.ReadLine();
+
+            Book borrowed = library.Borrow(userInput.ToUpper());
+
+            Bag.Pack(borrowed);
+            UserInterface();
+        }
+        public static void AddBook()
+        {
+            Console.WriteLine("Please enter a title for your book");
+            string title = Console.ReadLine();
+            Console.WriteLine("Please enter the first name of the author");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Please enter the last name of the author");
+            string lastName = Console.ReadLine();
+            Console.WriteLine("Please enter the number of pages ");
+            int numOfPages = Convert.ToInt32(Console.ReadLine());
+
+            library.Add(title.ToUpper(), firstName.ToUpper(), lastName.ToUpper(), numOfPages);
+            UserInterface();
+        }
+        public static void ViewBooks()
+        {
+            foreach (Book book in library)
+            {
+                Console.WriteLine("Tile: " + book.title + " Author: " + book.firstName + " " + book.lastName);
+            }
+            UserInterface();
+        }
         public class Library : ILibrary
         {
-            public int Count => throw new NotImplementedException();
 
-           private Dictionary<string, Book> BorrowedBooks = new Dictionary<string, Book>();
 
-            //public void Set(string key, Book)
-            //{
-            //    if (BorrowedBooks.ContainsKey(key))
-            //    {
-            //        BorrowedBooks[key] = Book;
-            //    }
-            //    else
-            //    {
-            //        BorrowedBooks.Add(key, value);
-            //    }
-            //}
+            private Dictionary<string, Book> Allbooks = new Dictionary<string, Book>();
 
-            public Book Get(string key)
-            {
-                Book result = null;
-                if (BorrowedBooks.ContainsKey(key))
-                {
-                    result = BorrowedBooks[key];
-                }
 
-                return result;
-            }
+
+            public int Count => Allbooks.Count;
+
+
+
+
+            // Add a Book to the library.
             public void Add(string title, string firstName, string lastName, int numberOfPages)
             {
-                Book book1 = new Book(title, firstName, lastName, numberOfPages);
-                BorrowedBooks.Add(title, book1);
+
+                Book book = new Book(title, firstName, lastName, numberOfPages);
+                Allbooks.Add(title, book);
+
             }
 
+
+            // Remove a Book from the library with the given title.
+            // <returns>The Book, or null if not found.</returns>
             public Book Borrow(string title)
             {
 
 
-                Book book2;
-                BorrowedBooks.TryGetValue(title, out book2);
-                if (BorrowedBooks.ContainsKey(title))
+                if (Allbooks.ContainsKey(title))
                 {
-                    //Bag.Add(title, book2);
-                    BorrowedBooks.Remove(title);
-                    return BorrowedBooks[title];
-                 }
+                    Book book = Allbooks[title];
+                    Allbooks.Remove(title);
+
+                    return book;
+                }
                 else
                 {
                     return null;
+
                 }
+
             }
 
-            public IEnumerator<Book> GetEnumerator() ///// to be done later (needs furthur explanation)
-            {
-                throw new NotImplementedException();
-            }
-
+            // Return a Book to the library.
             public void Return(Book book)
             {
-                BorrowedBooks.Add(book.Title, book);
+                Allbooks.Add(book.title, book);
+
             }
 
-            IEnumerator IEnumerable.GetEnumerator() ///// to be done later (needs furthur explanation)
+
+            public IEnumerator<Book> GetEnumerator()
             {
-                throw new NotImplementedException();
+                foreach (Book book in Allbooks.Values)
+                {
+                    yield return book;
+                }
+
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
             }
         }
-
-
-
-
         public interface ILibrary : IReadOnlyCollection<Book>
         {
             /// <summary>
@@ -116,33 +220,6 @@ namespace Lab08_Collections
             /// </summary>
             void Return(Book book);
         }
-
-        public class Backpack<T> : IBag<T>
-        {
-            public Dictionary<string, Book> Bag = new Dictionary<string, Book>();
-
-            public IEnumerator<T> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Pack(T item)
-            {
-                //Bag.Add();
-            }
-
-            public T Unpack(int index)
-            {
-                throw new NotImplementedException();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-
         public interface IBag<T> : IEnumerable<T>
         {
             /// <summary>
@@ -156,5 +233,52 @@ namespace Lab08_Collections
             /// <returns>The item that was removed.</returns>
             T Unpack(int index);
         }
+        public class Book
+        {
+            public string title { get; set; }
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public int numberOfPages { get; set; }
+
+
+
+            public Book(string title, string firstName, string lastName, int numberOfPages)
+            {
+                this.title = title;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.numberOfPages = numberOfPages;
+            }
+        }
+        public class Backpack<T> : IBag<T>
+        {
+            public List<T> Bag = new List<T>();
+            public IEnumerator<T> GetEnumerator()
+            {
+                foreach (T item in Bag)
+                {
+                    yield return item;
+                }
+            }
+
+            public void Pack(T item)
+            {
+                Bag.Add(item);
+            }
+
+            public T Unpack(int index)
+            {
+                T item = Bag[index];
+                Bag.RemoveAt(index);
+                return item;
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
+            }
+        }
     }
+
+
 }
